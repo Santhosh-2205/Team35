@@ -1,0 +1,75 @@
+.container{
+    border: 1px solid #000000; 
+    border-top: 0px;
+}
+
+.vertical-line {
+    border-right: 1px solid #ccc;
+}
+
+.icon,.icon-mcq,.icon-image,.icon-single{
+    width: 50px;
+    height: 50px;
+    /* Specify the path to your icon image */
+    background-size: cover;
+    cursor: pointer;
+    z-index: 1;
+    margin: 10px; 
+    transform: scale(0.75);
+}
+
+.icon {
+    background-image: url('../image/text.png');
+}
+.icon-mcq {
+    background-image: url('../image/mcq.png');
+}
+
+.icon-image {
+    background-image: url('../image/image.png');
+}
+
+.icon-single {
+    background-image: url('../image/single.png');
+}
+
+
+        /* Style for the textarea */
+.textarea-box {
+    width: 400px; /* Adjust the width as needed */
+    height: 150px; /* Adjust the height as needed */
+    border: 2px solid black;
+    border-radius: 12px;
+    resize: both;
+    overflow: auto;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    display: none;
+    padding: 10px;
+}
+
+.question,
+.answer {
+    width: 50%;
+    height: 100%;
+    float: left;
+    margin: 10px;
+    padding: 10px;
+    border: 3px solid #ba0303;
+
+}
+
+.main-area {
+    position: relative;
+    z-index: 0;
+    /* Ensure the border is behind other elements */
+    
+}
+
+textarea {
+    resize: vertical;
+    border-radius: 5px;
+    margin: 3px;
+  }
