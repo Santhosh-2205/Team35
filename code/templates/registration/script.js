@@ -186,16 +186,14 @@ singleBoxOptions.forEach(function (optionInput) {
         const singleBoxContainer = optionInput.closest('.single-box');
         if (singleBoxContainer) {
             // Find the .optionsContainer class within the .single-box container
-            const optionsContainer = singleBoxContainer.querySelector('.optionsContainer');
-            if (optionsContainer) {
                 // Deselect other options within the same container
-                const options = optionsContainer.querySelectorAll('.option');
+                const options = singleBoxContainer.querySelectorAll('div > .option');
                 options.forEach(option => {
                     if (option !== optionInput.parentElement) {
                         option.querySelector('input[type="radio"]').checked = false;
                     }
                 });
-            }
+            
         }
     });
 });
