@@ -262,9 +262,9 @@ function calculateBoundary(element) {
     const elementRect = element.getBoundingClientRect();
     
     // Calculate the maximum allowable left, top, right, and bottom positions
-    const maxLeft = mainAreaRect.left- 0.295*elementRect.width;
+    const maxLeft = mainAreaRect.left- 0.78*elementRect.width;
     const maxTop = mainAreaRect.top+ elementRect.height/2;
-    const maxRight = mainAreaRect.right  -1.3*elementRect.width;
+    const maxRight = mainAreaRect.right  -1.8*elementRect.width;
     const maxBottom = mainAreaRect.bottom+num_expands*100+elementRect.height ;
     
     return { maxLeft, maxTop, maxRight, maxBottom };
