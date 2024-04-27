@@ -1,143 +1,143 @@
 .container {
-    border: 1px solid #000000;
-    border-top: 0px;
-  }
-  
-  .vertical-line {
-    border-right: 1px solid #ccc;
-  }
-  
-  .icon,
-  .icon-mcq,
-  .icon-image,
-  .icon-single {
-    width: 50px;
-    height: 50px;
-    background-size: cover;
-    cursor: pointer;
-    z-index: 1;
-    margin: 10px;
-    transform: scale(0.75);
-  }
-  
-  .icon {
-    background-image: url('../image/text.png');
-  }
-  
-  .icon-mcq {
-    background-image: url('../image/mcq.png');
-  }
-  
-  .icon-image {
-    background-image: url('../image/image.png');
-  }
-  
-  .icon-single {
-    background-image: url('../image/single.png');
-  }
-  
-  .textarea-box {
-    width: 400px;
-    height: 150px;
-    border: 2px solid black;
-    border-radius: 12px;
-    resize: both;
-    overflow: auto;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-    display: none;
-    padding: 10px;
-  }
-  
-  .question,
-  .answer {
-    width: 50%;
-    height: 100%;
-    float: left;
-    margin: 10px;
-    padding: 10px;
-    border: 3px solid #ba0303;
-  }
-  
-  .main-area {
-    position: relative;
-    z-index: 0;
-  }
-  
-  textarea {
-    resize: vertical;
-    border-radius: 5px;
-    margin: 3px;
-  }
-  
-  /* Dark mode styles */
-  body.dark-mode {
-    background-color: #212529;
-    color: #fff;
-  }
-  
-  .dark-mode .container {
-    border: none;
-  }
-  
-  .dark-mode .vertical-line {
-    border-right-color: #fff;
-  }
-  
-  .dark-mode .main-area {
-    background-color: #343a40;
-    border-color: #fff;
-  }
-  
-  .dark-mode .textarea-box {
-    border-color: #fff;
-    background-color: #343a40;
-    color: #fff;
-  }
-  
-  .dark-mode .question,
-  .dark-mode .answer {
-    border-color: #fff;
-  }
-  
-  .dark-mode textarea {
-    background-color: #495057;
-    color: #fff;
-  }
-  
-  .mode-toggle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
+  border: 1px solid #000000;
+  border-top: 0px;
+}
 
-  .round-button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    background-color: #fff;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-    margin: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
-  }
-  
-  .round-button:hover {
-    transform: scale(1.1);
-  }
-  
-  .expand-button {
-    background-image: url('../image/expand.png');
-  }
+.vertical-line {
+  border-right: 1px solid #ccc;
+}
 
+.icon,
+.icon-mcq,
+.icon-text,
+.icon-single {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  cursor: pointer;
+  z-index: 1;
+  margin: 10px;
+  transform: scale(0.75);
+}
+
+.icon {
+  background-image: url('../image/text.png');
+}
+
+.icon-mcq {
+  background-image: url('../image/mcq.png');
+}
+
+.icon-text {
+  background-image: url('../image/image.png');
+}
+
+.icon-single {
+  background-image: url('../image/single.png');
+}
+
+.textarea-box {
+  width: 400px;
+  height: 150px;
+  border: 2px solid black;
+  border-radius: 12px;
+  resize: both;
+  overflow: auto;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  display: none;
+  padding: 10px;
+}
+
+.question,
+.answer {
+  width: 50%;
+  height: 100%;
+  float: left;
+  margin: 10px;
+  padding: 10px;
+  border: 3px solid #ba0303;
+}
+
+.main-area {
+  position: relative;
+  z-index: 0;
+}
+
+textarea {
+  resize: vertical;
+  border-radius: 5px;
+  margin: 3px;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #212529;
+  color: #fff;
+}
+
+.dark-mode .container {
+  border: none;
+}
+
+.dark-mode .vertical-line {
+  border-right-color: #fff;
+}
+
+.dark-mode .main-area {
+  background-color: #343a40;
+  border-color: #fff;
+}
+
+.dark-mode .textarea-box {
+  border-color: #fff;
+  background-color: #343a40;
+  color: #fff;
+}
+
+.dark-mode .question,
+.dark-mode .answer {
+  border-color: #fff;
+}
+
+.dark-mode textarea {
+  background-color: #495057;
+  color: #fff;
+}
+
+.mode-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.round-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  margin: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.round-button:hover {
+  transform: scale(1.1);
+}
+
+.expand-button {
+  background-image: url('../image/expand.png');
+}
+
+
+.export-button {
+  background-image: url('../image/export.png');
   
-  .export-button {
-    background-image: url('../image/export.png');
-    
-  }
+}

@@ -25,186 +25,201 @@ exportButton.addEventListener('click', handleExport);
 // Function to generate HTML of the main area including dynamically added elements
 // Function to generate HTML of the main area excluding expand and export buttons
 function generateMainAreaHTML(expandedHeight, num_expands) {
-const mainArea = document.querySelector('.col-md-8.vertical-line.main-area');
-if (!mainArea) {
-    console.error('Main area element not found.');
-    return ''; // Return empty string if main area element not found
-}
-
-// Clone the main area
-// Clone the main area
-const clonedMainArea = mainArea.cloneNode(true);
-clonedMainArea.style.width = mainArea.offsetWidth + 'px';
-clonedMainArea.style.height = `${1000 + expandedHeight * num_expands}px`; // Update the height based on num_expands
-clonedMainArea.style.left = '500px';
-clonedMainArea.style.position = 'relative';
-// Set width and height of the cloned main area to match the original
-
-// Select all dynamically added elements within the main area
-const dynamicElements = clonedMainArea.querySelectorAll('.textarea-box');
-
-// Iterate over each dynamic element
-dynamicElements.forEach(element => {
-    // If the element contains a textarea, treat it as usual
-    if (!element.classList.contains('mcq-box') && !element.classList.contains('single-box')) {
-        const originalTextArea = element.querySelector('textarea');
-        if (originalTextArea) {
-            const clonedTextArea = element.querySelector('textarea');
-            if (clonedTextArea) {
-                clonedTextArea.textContent = originalTextArea.value;
-                clonedTextArea.setAttribute('readonly', true); // Make textarea non-editable
+    const mainArea = document.querySelector('.col-md-8.vertical-line.main-area');
+    if (!mainArea) {
+        console.error('Main area element not found.');
+        return ''; // Return empty string if main area element not found
+    }
+    
+    // Clone the main area
+    // Clone the main area
+    const clonedMainArea = mainArea.cloneNode(true);
+    clonedMainArea.style.width = mainArea.offsetWidth + 'px';
+    clonedMainArea.style.height = `${1000 + expandedHeight * num_expands}px`; // Update the height based on num_expands
+    clonedMainArea.style.left = '500px';
+    clonedMainArea.style.position = 'relative';
+    // Set width and height of the cloned main area to match the original
+    
+    // Select all dynamically added elements within the main area
+    const dynamicElements = clonedMainArea.querySelectorAll('.textarea-box');
+    
+    // Iterate over each dynamic element
+    dynamicElements.forEach(element => {
+        // If the element contains a textarea, treat it as usual
+        if (!element.classList.contains('mcq-box') && !element.classList.contains('single-box') && !element.classList.contains('textonly-box')) {
+            const originalTextArea = element.querySelector('textarea');
+            if (originalTextArea) {
+                const clonedTextArea = element.querySelector('textarea');
+                if (clonedTextArea) {
+                    clonedTextArea.textContent = originalTextArea.value;
+                    clonedTextArea.setAttribute('readonly', true); // Make textarea non-editable
+                } else {
+                    console.error('Textarea not found in cloned main area.');
+                }
+            }
+        } else if (element.classList.contains('mcq-box')) {
+            // If the element contains an input, treat it as an MCQ box
+            const questionInput = element.querySelector('[placeholder="Question"]');
+            const options = element.querySelectorAll('.textarea-box.mcq-box > div > div > textarea[placeholder="Option"]');
+            console.log(questionInput);
+            console.log(options);
+    
+            if (questionInput && options.length > 0) {
+                // Add the question input
+                const questionInputClone = element.querySelector('[placeholder="Question"]');
+                questionInputClone.textContent = questionInput.value;
+                questionInputClone.setAttribute('readonly', true);
+                console.log(questionInput.value);
+                console.log(questionInputClone.value);
+    
+                // Add each option
+                const optionInputsClones = element.querySelectorAll('.textarea-box.mcq-box > div > div > textarea[placeholder="Option"]');
+                options.forEach((optionInput, index) => {
+                    // Select the corresponding cloned textarea for each option
+                    const optionInputClone = optionInputsClones[index];
+                    optionInputClone.textContent = optionInput.value;
+                    optionInputClone.setAttribute('readonly', true);
+    
+                    console.log(optionInput.value);
+                    console.log(optionInputClone.textContent);
+                });
             } else {
-                console.error('Textarea not found in cloned main area.');
+                console.error('Question input or options container not found in MCQ box.');
             }
         }
-    } else if (element.classList.contains('mcq-box')) {
-        // If the element contains an input, treat it as an MCQ box
-        const questionInput = element.querySelector('[placeholder="Question"]');
-        const options = element.querySelectorAll('.textarea-box.mcq-box > div > div > textarea[placeholder="Option"]');
-        console.log(questionInput);
-        console.log(options);
-
-        if (questionInput && options.length > 0) {
-            // Add the question input
-            const questionInputClone = element.querySelector('[placeholder="Question"]');
-            questionInputClone.textContent = questionInput.value;
-            questionInputClone.setAttribute('readonly', true);
-            console.log(questionInput.value);
-            console.log(questionInputClone.value);
-
-            // Add each option
-            const optionInputsClones = element.querySelectorAll('.textarea-box.mcq-box > div > div > textarea[placeholder="Option"]');
-            options.forEach((optionInput, index) => {
-                // Select the corresponding cloned textarea for each option
-                const optionInputClone = optionInputsClones[index];
-                optionInputClone.textContent = optionInput.value;
-                optionInputClone.setAttribute('readonly', true);
-
-                console.log(optionInput.value);
-                console.log(optionInputClone.textContent);
-            });
-        } else {
-            console.error('Question input or options container not found in MCQ box.');
+        else if (element.classList.contains('single-box'))
+        {
+            const questionInput = element.querySelector('[placeholder="Question"]');
+            const options = element.querySelectorAll('.textarea-box.single-box > div > div > textarea[placeholder="Option"]');
+            console.log(questionInput);
+            console.log(options);
+    
+            if (questionInput && options.length > 0) {
+                // Add the question input
+                const questionInputClone = element.querySelector('[placeholder="Question"]');
+                questionInputClone.textContent = questionInput.value;
+                questionInputClone.setAttribute('readonly', true    );
+                console.log(questionInput.value);
+                console.log(questionInputClone.value);
+    
+                // Add each option
+                const optionInputsClones = element.querySelectorAll('.textarea-box.single-box > div > div > textarea[placeholder="Option"]');
+                options.forEach((optionInput, index) => {
+                    // Select the corresponding cloned textarea for each option
+                    const optionInputClone = optionInputsClones[index];
+                    optionInputClone.textContent = optionInput.value;
+                    optionInputClone.setAttribute('readonly', true);
+    
+                    console.log(optionInput.value);
+                    console.log(optionInputClone.textContent);
+                });
+            } else {
+                console.error('Question input or options container not found in MCQ box.');
+            }  
         }
+        else if (element.classList.contains('textonly-box'))
+        {
+            const originalTextArea = element.querySelector('textarea');
+            if (originalTextArea) {
+                const clonedTextArea = element.querySelector('textarea');
+                if (clonedTextArea) {
+                    clonedTextArea.textContent = originalTextArea.value;
+                    clonedTextArea.setAttribute('readonly', true); // Make textarea non-editable
+                } else {
+                    console.error('Textarea not found in cloned main area.');
+                }
+            }    
+        }
+        const linkedContainerId = element.id;
+        console.log(element.id);
+    if (linkedContainerId && document.querySelector(`[data-linked-container-id="${linkedContainerId}"]`)) {
+        element.style.display = 'none';
     }
-    else if (element.classList.contains('single-box'))
-    {
-        const questionInput = element.querySelector('[placeholder="Question"]');
-        const options = element.querySelectorAll('.textarea-box.single-box > div > div > textarea[placeholder="Option"]');
-        console.log(questionInput);
-        console.log(options);
-
-        if (questionInput && options.length > 0) {
-            // Add the question input
-            const questionInputClone = element.querySelector('[placeholder="Question"]');
-            questionInputClone.textContent = questionInput.value;
-            questionInputClone.setAttribute('readonly', true    );
-            console.log(questionInput.value);
-            console.log(questionInputClone.value);
-
-            // Add each option
-            const optionInputsClones = element.querySelectorAll('.textarea-box.single-box > div > div > textarea[placeholder="Option"]');
-            options.forEach((optionInput, index) => {
-                // Select the corresponding cloned textarea for each option
-                const optionInputClone = optionInputsClones[index];
-                optionInputClone.textContent = optionInput.value;
-                optionInputClone.setAttribute('readonly', true);
-
-                console.log(optionInput.value);
-                console.log(optionInputClone.textContent);
-            });
-        } else {
-            console.error('Question input or options container not found in MCQ box.');
-        }  
-    }
-    const linkedContainerId = element.id;
-    console.log(element.id);
-if (linkedContainerId && document.querySelector(`[data-linked-container-id="${linkedContainerId}"]`)) {
-    element.style.display = 'none';
-}
-});
-
-// Remove expand and export buttons from cloned main area
-
-const exportedHTML = `
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Exported HTML</title>
-    <style>
-      ${getExportStyles()}
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        padding: 0;
-      }
-      .main-area {
-        background-color: rgb(252, 253, 255);
-        border: 1px solid #000000;
-        width: 80%;
-        max-width: 800px;
-        min-height: ${1000 + expandedHeight * num_expands}px;
-        padding: 20px;
-        position: relative;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="main-area">
-      ${clonedMainArea.innerHTML}
-    </div>
-  </body>
-</html>
-`;
-
-return exportedHTML;
-}
-
-function getExportStyles() {
-    return `
-        .textarea-box {
-          width: 440px;
-          height: 165px;
-          border: 2px solid black;
-          border-radius: 12px;
-          resize: both;
-          overflow: auto;
-          position: absolute;
-          transform: translate(-50%, -50%);
-          display: block;
-          padding: 10px;
-        }
-        
-        .mcq-box, .single-box {
-          width: 440px;
-          height: auto;
-          border: 2px solid black;
-          border-radius: 12px;
-          position: absolute;
-          transform: translate(-50%, -50%);
-          display: block;
-          padding: 10px;
-        }
-        
-        textarea {
-          resize: vertical;
-          border-radius: 5px;
-          margin: 3px;
-        }
-        
-        .option {
-          margin-bottom: 10px;
-        }
-        
-        .option input[type="checkbox"],
-        .option input[type="radio"] {
-          margin-right: 5px;
-        }
+    });
+    
+    // Remove expand and export buttons from cloned main area
+    
+    const exportedHTML = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Exported HTML</title>
+        <style>
+          ${getExportStyles()}
+          body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+          }
+          .main-area {
+            background-color: rgb(252, 253, 255);
+            border: 1px solid #000000;
+            width: 80%;
+            max-width: 800px;
+            min-height: ${1000 + expandedHeight * num_expands}px;
+            padding: 20px;
+            position: relative;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="main-area">
+          ${clonedMainArea.innerHTML}
+        </div>
+      </body>
+    </html>
     `;
-  }
+    
+    return exportedHTML;
+    }
+    
+    function getExportStyles() {
+        return `
+            .textarea-box {
+              width: 440px;
+              height: 165px;
+              border: 2px solid black;
+              border-radius: 12px;
+              resize: both;
+              overflow: auto;
+              position: absolute;
+              transform: translate(-50%, -50%);
+              display: block;
+              padding: 10px;
+            }
+            
+            .mcq-box, .single-box {
+              width: 440px;
+              height: auto;
+              border: 2px solid black;
+              border-radius: 12px;
+              position: absolute;
+              transform: translate(-50%, -50%);
+              display: block;
+              padding: 10px;
+            }
+            
+            textarea {
+              resize: vertical;
+              border-radius: 5px;
+              margin: 3px;
+            }
+            
+            .option {
+              margin-bottom: 10px;
+            }
+            
+            .option input[type="checkbox"],
+            .option input[type="radio"] {
+              margin-right: 5px;
+            }
+        `;
+      }
+
+
 function removeButtonsFromHTML(htmlString) {
 // Create a temporary element to parse the HTML string
 const tempElement = document.createElement('div');
@@ -224,104 +239,104 @@ return tempElement.innerHTML;
 
 // Function to trigger file download
 function downloadHTML(filename, text) {
-  const element = document.createElement('a');
-  element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
-  element.setAttribute('download', filename);
-
-  element.style.display = 'none';
-  document.body.appendChild(element);
-
-  element.click();
-
-  document.body.removeChild(element);
-}
-
-// Function to handle export
-function handleExport() {
-    const expandedHeight = 100; // Adjust this value to the desired height to expand by
-    const mainAreaHTML = generateMainAreaHTML(expandedHeight, num_expands);
-    const scriptContent = `
-document.addEventListener('DOMContentLoaded', function () {
-    console.log("Hello");
-    const options = document.querySelectorAll('.option');
-    var flag=0;
-    options.forEach(function (option) {
-        option.addEventListener('click', function () {
-            const linkedContainerId = option.dataset.linkedContainerId;
-            const containers = document.querySelectorAll('.textarea-box');
-            
-            // Toggle the 'selected' class for the clicked option
-            options.forEach(function (opt) {
-                if (opt.classList.contains('selected') && opt===option && option.type!=='radio')
-                flag=1;
-                opt.classList.remove('selected');
-                const linked=opt.dataset.linkedContainerId; // Remove 'selected' class from all options
-                containers.forEach(function (container) {
-                    if (container.id === linked) {
-                        
-                            container.style.display = 'none'; // Hide container if option is unselected
-                       
-                    }
-                });
-            });
-            if(flag==0)
-            option.classList.add('selected'); // Add 'selected' class to the clicked option
-            flag =0;
-            // Show or hide linked containers based on the selection state
-            containers.forEach(function (container) {
-                if (container.id === linkedContainerId) {
-                    if (option.classList.contains('selected')) {
-                        container.style.display = 'block'; // Show linked container if option is selected
-                    } else {
-                        container.style.display = 'none'; // Hide container if option is unselected
-                    }
-                }
-            });
-        });
-    });
-    const singleBoxOptions = document.querySelectorAll('.single-box input[type="radio"]');
-singleBoxOptions.forEach(function (optionInput) {
-    optionInput.addEventListener('click', function() {
-        // Traverse up the DOM to find the parent .single-box container
-        const singleBoxContainer = optionInput.closest('.single-box');
-        if (singleBoxContainer) {
-            // Find the .optionsContainer class within the .single-box container
-                // Deselect other options within the same container
-                const options = singleBoxContainer.querySelectorAll('div > .option');
-                options.forEach(option => {
-                    if (option !== optionInput.parentElement) {
-                        option.querySelector('input[type="radio"]').checked = false;
-                    }
-                });
-            
-        }
-    });
-});
-
-});
-`;
-
-
-    const fullHTML = `
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <title>Exported HTML</title>
-            </head>
-            <body>
-                ${mainAreaHTML}
-            </body>
-            <script>
-                ${scriptContent}
-    `;
-    
-    const finalHTML=removeButtonsFromHTML(fullHTML);
-    // Ask user for filename
-    const filename = prompt('Enter the filename:', 'export.html');
-    if (filename) {
-        downloadHTML(filename, finalHTML);
-    }
-}
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
+  
+  // Function to handle export
+  function handleExport() {
+      const expandedHeight = 100; // Adjust this value to the desired height to expand by
+      const mainAreaHTML = generateMainAreaHTML(expandedHeight, num_expands);
+      const scriptContent = `
+  document.addEventListener('DOMContentLoaded', function () {
+      console.log("Hello");
+      const options = document.querySelectorAll('.option');
+      var flag=0;
+      options.forEach(function (option) {
+          option.addEventListener('click', function () {
+              const linkedContainerId = option.dataset.linkedContainerId;
+              const containers = document.querySelectorAll('.textarea-box');
+              
+              // Toggle the 'selected' class for the clicked option
+              options.forEach(function (opt) {
+                  if (opt.classList.contains('selected') && opt===option && option.type!=='radio')
+                  flag=1;
+                  opt.classList.remove('selected');
+                  const linked=opt.dataset.linkedContainerId; // Remove 'selected' class from all options
+                  containers.forEach(function (container) {
+                      if (container.id === linked) {
+                          
+                              container.style.display = 'none'; // Hide container if option is unselected
+                         
+                      }
+                  });
+              });
+              if(flag==0)
+              option.classList.add('selected'); // Add 'selected' class to the clicked option
+              flag =0;
+              // Show or hide linked containers based on the selection state
+              containers.forEach(function (container) {
+                  if (container.id === linkedContainerId) {
+                      if (option.classList.contains('selected')) {
+                          container.style.display = 'block'; // Show linked container if option is selected
+                      } else {
+                          container.style.display = 'none'; // Hide container if option is unselected
+                      }
+                  }
+              });
+          });
+      });
+      const singleBoxOptions = document.querySelectorAll('.single-box input[type="radio"]');
+  singleBoxOptions.forEach(function (optionInput) {
+      optionInput.addEventListener('click', function() {
+          // Traverse up the DOM to find the parent .single-box container
+          const singleBoxContainer = optionInput.closest('.single-box');
+          if (singleBoxContainer) {
+              // Find the .optionsContainer class within the .single-box container
+                  // Deselect other options within the same container
+                  const options = singleBoxContainer.querySelectorAll('div > .option');
+                  options.forEach(option => {
+                      if (option !== optionInput.parentElement) {
+                          option.querySelector('input[type="radio"]').checked = false;
+                      }
+                  });
+              
+          }
+      });
+  });
+  
+  });
+  `;
+  
+  
+      const fullHTML = `
+          <!DOCTYPE html>
+          <html>
+              <head>
+                  <title>Exported HTML</title>
+              </head>
+              <body>
+                  ${mainAreaHTML}
+              </body>
+              <script>
+                  ${scriptContent}
+      `;
+      
+      const finalHTML=removeButtonsFromHTML(fullHTML);
+      // Ask user for filename
+      const filename = prompt('Enter the filename:', 'export.html');
+      if (filename) {
+          downloadHTML(filename, finalHTML);
+      }
+  }
 // Append the export button to the document body
 
 
@@ -339,9 +354,9 @@ function calculateBoundary(element) {
     const elementRect = element.getBoundingClientRect();
     
     // Calculate the maximum allowable left, top, right, and bottom positions
-    const maxLeft = mainAreaRect.left- 0.295*elementRect.width;
+    const maxLeft = mainAreaRect.left- 0.78*elementRect.width;
     const maxTop = mainAreaRect.top+ elementRect.height/2;
-    const maxRight = mainAreaRect.right  -1.3*elementRect.width;
+    const maxRight = mainAreaRect.right  -1.8*elementRect.width;
     const maxBottom = mainAreaRect.bottom+num_expands*100+elementRect.height ;
     
     return { maxLeft, maxTop, maxRight, maxBottom };
@@ -387,7 +402,6 @@ function handleMouseUp() {
 document.addEventListener('mousemove', handleMouseMove);
 document.addEventListener('mouseup', handleMouseUp);
 const icon = document.querySelector('.icon.col-4');
-const icon_image = document.querySelector('.icon-image.col-4');
 const inputFileBox = document.querySelector('.file-box');
 const icon_mcq = document.querySelector('.icon-mcq.col-4');
 const icon_single=document.querySelector('.icon-single.col-4');
@@ -395,13 +409,9 @@ const icon_single=document.querySelector('.icon-single.col-4');
 
 
 const textareaBox = document.querySelector('.textarea-box');
-
+const icon_text=document.querySelector('.icon-text.col-4');
 
 icon.addEventListener("dragstart", (event) => {
-    dragged = event.target  ;
-    event.dataTransfer.setData('text/plain', 'anything'); 
-});
-icon_image.addEventListener("dragstart", (event) => {
     dragged = event.target  ;
     event.dataTransfer.setData('text/plain', 'anything'); 
 });
@@ -413,8 +423,8 @@ icon_single.addEventListener("dragstart", (event) => {
     dragged = event.target  ;
     event.dataTransfer.setData('text/plain', 'anything'); 
 }); 
-document.body.addEventListener("dragover", (event) => {
-    event.preventDefault();
+icon_text.addEventListener("dragstart", (event) => {
+    dragged = event.target  ;
     event.dataTransfer.setData('text/plain', 'anything'); 
 });
 
@@ -459,24 +469,31 @@ function drop(event) {
     }
     
 
-    if (dragged.classList.contains("icon-image")) {
-
-        const clone = dragged.cloneNode(true);
-
-        clone.classList.remove("icon-image");
-        clone.classList.add("file-box");
-
+    if (dragged.classList.contains("icon-text")) {
+        const clone = document.createElement('div');
+        clone.classList.add("textarea-box", "textonly-box");
+        const textArea = document.createElement('textarea');
+        textArea.style.width = "100%";
+        textArea.style.height = "92%"; // Adjusted height to occupy entire space
+        textArea.style.border = "1px solid black";
+        textArea.placeholder = "Write your text here";
+            clone.appendChild(textArea);
         const x = event.clientX;
         const y = event.clientY;
         clone.style.left = `${x - clone.offsetWidth / 2}px`;
         clone.style.top = `${y - clone.offsetHeight / 2}px`;
-
-
-        clone.innerHTML = '<input type="file" accept="image/*" class="file-input">';
         clone.style.display = 'block';
-
+        clone.style.position = 'absolute'; // Make sure the box is absolutely positioned
+        clone.style.cursor = 'move';
+         // Change cursor to indicate draggable element
+      
+        clone.addEventListener('mousedown', handleMouseDown);
+    
         document.body.appendChild(clone);
+        mainArea.appendChild(clone);
     }
+    
+    
      if (dragged.classList.contains("icon-mcq")) {
     
     const clone = createMCQBox(event.clientX, event.clientY);
@@ -828,6 +845,7 @@ function enterEditModeText(event) {
     }
 }
 
+
 function createSingleBox(x, y) {
     // Create single box
     const singleBox = document.createElement('div');
@@ -1083,7 +1101,7 @@ function createSingleBox(x, y) {
 document.addEventListener('DOMContentLoaded', function() {
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
-    const icons = document.querySelectorAll('.icon, .icon-mcq, .icon-image, .icon-single');
+    const icons = document.querySelectorAll('.icon, .icon-mcq, .icon-text, .icon-single');
   
     darkModeToggle.addEventListener('change', function() {
       if (this.checked) {
