@@ -24,7 +24,7 @@ exportButton.addEventListener('click', handleExport);
 
 // Function to generate HTML of the main area including dynamically added elements
 // Function to generate HTML of the main area excluding expand and export buttons
-function generateMainAreaHTML() {
+function generateMainAreaHTML(expandedHeight, num_expands) {
 const mainArea = document.querySelector('.col-md-8.vertical-line.main-area');
 if (!mainArea) {
     console.error('Main area element not found.');
@@ -32,10 +32,11 @@ if (!mainArea) {
 }
 
 // Clone the main area
+// Clone the main area
 const clonedMainArea = mainArea.cloneNode(true);
 clonedMainArea.style.width = mainArea.offsetWidth + 'px';
-clonedMainArea.style.height = mainArea.offsetHeight + 'px';
-clonedMainArea.style.left='500px'; 
+clonedMainArea.style.height = `${1000 + expandedHeight * num_expands}px`; // Update the height based on num_expands
+clonedMainArea.style.left = '500px';
 clonedMainArea.style.position = 'relative';
 // Set width and height of the cloned main area to match the original
 
@@ -125,10 +126,85 @@ if (linkedContainerId && document.querySelector(`[data-linked-container-id="${li
 
 // Remove expand and export buttons from cloned main area
 
-return clonedMainArea.outerHTML; // Return the HTML of the cloned main area
+const exportedHTML = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exported HTML</title>
+    <style>
+      ${getExportStyles()}
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      .main-area {
+        background-color: rgb(252, 253, 255);
+        border: 1px solid #000000;
+        width: 80%;
+        max-width: 800px;
+        min-height: ${1000 + expandedHeight * num_expands}px;
+        padding: 20px;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-area">
+      ${clonedMainArea.innerHTML}
+    </div>
+  </body>
+</html>
+`;
+
+return exportedHTML;
 }
 
-
+function getExportStyles() {
+    return `
+        .textarea-box {
+          width: 440px;
+          height: 165px;
+          border: 2px solid black;
+          border-radius: 12px;
+          resize: both;
+          overflow: auto;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          display: block;
+          padding: 10px;
+        }
+        
+        .mcq-box, .single-box {
+          width: 440px;
+          height: auto;
+          border: 2px solid black;
+          border-radius: 12px;
+          position: absolute;
+          transform: translate(-50%, -50%);
+          display: block;
+          padding: 10px;
+        }
+        
+        textarea {
+          resize: vertical;
+          border-radius: 5px;
+          margin: 3px;
+        }
+        
+        .option {
+          margin-bottom: 10px;
+        }
+        
+        .option input[type="checkbox"],
+        .option input[type="radio"] {
+          margin-right: 5px;
+        }
+    `;
+  }
 function removeButtonsFromHTML(htmlString) {
 // Create a temporary element to parse the HTML string
 const tempElement = document.createElement('div');
@@ -148,21 +224,22 @@ return tempElement.innerHTML;
 
 // Function to trigger file download
 function downloadHTML(filename, text) {
-const element = document.createElement('a');
-element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
-element.setAttribute('download', filename);
+  const element = document.createElement('a');
+  element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
 
-element.style.display = 'none';
-document.body.appendChild(element);
+  element.style.display = 'none';
+  document.body.appendChild(element);
 
-element.click();
+  element.click();
 
-document.body.removeChild(element);
+  document.body.removeChild(element);
 }
 
 // Function to handle export
 function handleExport() {
-    const mainAreaHTML = generateMainAreaHTML(); // Get the HTML of the main area including dynamically added elements
+    const expandedHeight = 100; // Adjust this value to the desired height to expand by
+    const mainAreaHTML = generateMainAreaHTML(expandedHeight, num_expands);
     const scriptContent = `
 document.addEventListener('DOMContentLoaded', function () {
     console.log("Hello");
@@ -262,9 +339,9 @@ function calculateBoundary(element) {
     const elementRect = element.getBoundingClientRect();
     
     // Calculate the maximum allowable left, top, right, and bottom positions
-    const maxLeft = mainAreaRect.left- 0.78*elementRect.width;
+    const maxLeft = mainAreaRect.left- 0.295*elementRect.width;
     const maxTop = mainAreaRect.top+ elementRect.height/2;
-    const maxRight = mainAreaRect.right  -1.8*elementRect.width;
+    const maxRight = mainAreaRect.right  -1.3*elementRect.width;
     const maxBottom = mainAreaRect.bottom+num_expands*100+elementRect.height ;
     
     return { maxLeft, maxTop, maxRight, maxBottom };
