@@ -8,32 +8,44 @@ This repository contains all the resources and documentation for the Conference 
 ```
 Team35/
 ├── code  
-│   ├── image  
-│   │   ├── expand.png  
-│   │   ├── export.png  
-│   │   ├── image.png  
-│   │   ├── mcq.png  
-│   │   ├── single.png  
-│   │   └── text.png
-│   └── webpage  
-│       ├── script.js   
-│       ├── styles.css  
-│       └── template.html
-│       └── example.html  
+│   ├── image  
+│   │   ├── expand.png  
+│   │   ├── export.png  
+│   │   ├── image.png  
+│   │   ├── mcq.png  
+│   │   ├── single.png  
+│   │   └── text.png
+│   └── webpage  
+│       ├── CSS
+│       │   └── styles.css
+│       ├── HTML
+│       │   └── registration_page.html
+│       └── JS
+│           ├── darkmode.js
+│           ├── enter_edit.js
+│           ├── exit_edit.js
+│           ├── export_handle.js
+│           ├── export_html.js
+│           ├── export_style.js
+│           ├── MCQBox.js
+│           ├── misc.js
+│           ├── movement.js
+│           ├── script.js
+│           └── singlebox.js
 ├── docs  
-│   ├── ClassDiagram.svg  
-│   ├── Presentation.pdf  
-│   ├── SRS.pdf  
-│   ├── StatusTracker.xlsx  
-│   ├── TestPlanTracker.xlsx  
-│   └── WireFrame.pdf  
+│   ├── ClassDiagram.svg  
+│   ├── Presentation.pdf  
+│   ├── SRS.pdf  
+│   ├── StatusTracker.xlsx  
+│   ├── TestPlanTracker.xlsx  
+│   └── WireFrame.pdf  
 ├── MoM  
-│   ├── Apr12.pdf  
-│   ├── Apr17.pdf  
-│   ├── Apr1.pdf  
-│   ├── Apr5.pdf  
-│   └── Apr8.pdf  
-└── README.md  
+│   ├── Apr12.pdf  
+│   ├── Apr17.pdf  
+│   ├── Apr1.pdf  
+│   ├── Apr5.pdf  
+│   └── Apr8.pdf  
+└── README.md 
 ```
 
 
