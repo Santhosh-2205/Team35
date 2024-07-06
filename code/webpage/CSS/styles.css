@@ -21,19 +21,19 @@
 }
 
 .icon {
-  background-image: url('../image/text.png');
+  background-image: url('../../image/text.png');
 }
 
 .icon-mcq {
-  background-image: url('../image/mcq.png');
+  background-image: url('../../image/mcq.png');
 }
 
 .icon-text {
-  background-image: url('../image/image.png');
+  background-image: url('../../image/image.png');
 }
 
 .icon-single {
-  background-image: url('../image/single.png');
+  background-image: url('../../image/single.png');
 }
 
 .textarea-box {
@@ -142,11 +142,11 @@ body.dark-mode {
 }
 
 .expand-button {
-  background-image: url('../image/expand.png');
+  background-image: url('../../image/expand.png');
 }
 
 
 .export-button {
-  background-image: url('../image/export.png');
+  background-image: url('../../image/export.png');
   
 }
